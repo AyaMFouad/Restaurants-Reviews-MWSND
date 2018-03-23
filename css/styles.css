@@ -278,3 +278,8 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+
+.res-container  {
+	display:flex;
+	flex-wrap: wrap;
+}
