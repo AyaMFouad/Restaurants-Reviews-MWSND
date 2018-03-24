@@ -161,3 +161,18 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+Show map button
+*/
+callMap =
+document.getElementById('mapToggle').addEventListener('click', function(event) {
+  if (event.target.innerHTML === 'Show Map') {
+    document.getElementById('mapToggle').innerHTML = 'Hide Map';
+    document.getElementById('map-container').style.display = 'block';
+    window.initMap();
+  } else {
+    document.getElementById('mapToggle').innerHTML = 'Show Map';
+    document.getElementById('map-container').style.display = 'none';
+  }
+});
