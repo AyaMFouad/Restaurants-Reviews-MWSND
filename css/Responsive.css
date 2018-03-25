@@ -1,0 +1,25 @@
+/* responsive design for mobile */
+@media screen and (max-width:450px) {
+  #map-container {display: none;}
+  #breadcrumb {width:100%;}
+  #mapToggle{
+    display:block;
+    position: absolute;
+    color: black;
+  }
+  .restaurant-grid {grid-template-columns: 1fr;}
+  .inside footer {width: 100%;}
+  .filter-options select {width: 170px;}
+}
+
+
+
+
+
+
+
+
+
+
+
+/*responsive design for tablets/phablets */

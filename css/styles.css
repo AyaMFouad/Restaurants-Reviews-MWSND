@@ -282,6 +282,7 @@ justify-item text-align: center;
 #reviews-list li p {
   margin: 0 0 10px;
 }
+
 #restaurant-hours td {
   color: #666;
 }
@@ -292,7 +293,13 @@ justify-item text-align: center;
 }
 
 #mapToggle {
+	font-size: 1.7rem;
+	float: right;
+	padding: 20px;
+	background: white;
+	opacity: 0.5;
 	display: none;
+	font-style: oblique;
 }
 
 .restaurant-grid{

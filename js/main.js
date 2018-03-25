@@ -176,3 +176,18 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+
+/**
+Show map button
+*/
+callMap =
+document.getElementById('mapToggle').addEventListener('click', function(event) {
+  if (event.target.innerHTML === 'Show Map') {
+    document.getElementById('mapToggle').innerHTML = 'Hide Map';
+    document.getElementById('map-container').style.display = 'block';
+    window.initMap();
+  } else {
+    document.getElementById('mapToggle').innerHTML = 'Show Map';
+    document.getElementById('map-container').style.display = 'none';
+  }
+});
