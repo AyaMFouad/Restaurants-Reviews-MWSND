@@ -2,24 +2,40 @@
 @media screen and (max-width:450px) {
   #map-container {display: none;}
   #breadcrumb {width:100%;}
+  #restaurants-list li {margin: 30px;}
   #mapToggle{
     display:block;
     position: absolute;
     color: black;
   }
+  .res-container {grid-template-columns: 1fr;}
   .restaurant-grid {grid-template-columns: 1fr;}
   .inside footer {width: 100%;}
   .filter-options select {width: 170px;}
+
 }
-
-
-
-
-
-
-
-
-
-
-
 /*responsive design for tablets/phablets */
+
+@media screen and (min-width:450px) and (max-width:768px) {
+  #map-container {display: none;}
+  #restaurants-list li {
+    margin: 10px;
+    width: auto;
+  }
+  #mapToggle{
+    display:block;
+    position: absolute;
+    color: black;
+  }
+  .inside #map-container{
+  position:relative;
+  top:0;
+  width:100%;
+  min-height:300px}
+  #map{height:300px}
+  .inside header{position:relative}
+  #breadcrumb{width:100%;}
+  #restaurant-container {padding: 30px 20px;}
+  .res-container {grid-template-columns: 1fr 1fr;}
+  .restaurant-grid {grid-template-columns: 1fr;}
+}
