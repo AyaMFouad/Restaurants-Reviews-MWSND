@@ -1,5 +1,5 @@
 /* responsive design for mobile */
-@media screen and (max-width:450px) {
+@media screen and (max-width:460px) {
   #map-container {display: none;}
   #breadcrumb {width:100%;}
   #restaurants-list li {margin: 30px;}
@@ -16,7 +16,7 @@
 }
 /*responsive design for tablets/phablets */
 
-@media screen and (min-width:450px) and (max-width:768px) {
+@media screen and (min-width:460px) and (max-width:768px) {
   #map-container {display: none;}
   #restaurants-list li {
     margin: 10px;

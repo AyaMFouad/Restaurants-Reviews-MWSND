@@ -269,6 +269,17 @@ justify-item text-align: center;
   margin: 0;
   padding: 0;
 }
+#reviews-list i{
+	background: orange;
+	border-radius: 5px;
+	padding: 3px;
+	color: #fff;
+}
+#reviews-list h5 {
+	float:right;
+	padding: 10px;
+}
+
 #reviews-list li {
   background-color: #fff;
   border: 2px solid #f3f3f3;
@@ -282,7 +293,7 @@ justify-item text-align: center;
 }
 
 #reviews-list li p {
-  margin: 0 0 10px;
+  margin: 10px 0 10px;
 }
 
 #restaurant-hours td {
