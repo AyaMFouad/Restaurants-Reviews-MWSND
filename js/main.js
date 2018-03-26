@@ -20,6 +20,8 @@ const photographAlts = {
 	10: "Empty restaurant's white chairs, walls and ceilings."
 };
 
+
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -99,6 +101,19 @@ window.initMap = () => {
   updateRestaurants();
 }
 
+
+/**
+Show map button
+*/
+callMap =
+document.getElementById('mapToggle').addEventListener('click', function(event) {
+  if ((document.getElementById('map-container').style.display) === 'block') {
+    document.getElementById('map-container').style.display = 'none';
+    window.initMap();
+  } else {
+    document.getElementById('map-container').style.display = 'block';
+  }
+});
 /**
  * Update page and map for current restaurants.
  */
@@ -194,18 +209,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
-
-/**
-Show map button
-*/
-callMap =
-document.getElementById('mapToggle').addEventListener('click', function(event) {
-  if (event.target.innerHTML === 'Show Map') {
-    document.getElementById('mapToggle').innerHTML = 'Hide Map';
-    document.getElementById('map-container').style.display = 'block';
-    window.initMap();
-  } else {
-    document.getElementById('mapToggle').innerHTML = 'Show Map';
-    document.getElementById('map-container').style.display = 'none';
-  }
-});

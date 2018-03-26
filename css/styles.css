@@ -313,13 +313,11 @@ justify-item text-align: center;
 }
 
 #mapToggle {
-	font-size: 1.7rem;
+	font-size: 4rem;
 	float: right;
-	padding: 20px;
 	background: white;
 	opacity: 0.5;
 	display: none;
-	font-style: oblique;
 	align-items: center;
 }
 

@@ -18,6 +18,8 @@ const photographAlts = {
 	10: "Empty restaurant's white chairs, walls and ceilings."
 };
 
+
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -37,6 +39,18 @@ window.initMap = () => {
   });
 }
 
+/**
+Show map button
+*/
+callMap =
+document.getElementById('mapToggle').addEventListener('click', function(event) {
+  if ((document.getElementById('map-container').style.display) === 'block') {
+    document.getElementById('map-container').style.display = 'none';
+    window.initMap();
+  } else {
+    document.getElementById('map-container').style.display = 'block';
+  }
+});
 /**
  * Get current restaurant from page URL.
  */
@@ -183,18 +197,3 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-
-/**
-Show map button
-*/
-callMap =
-document.getElementById('mapToggle').addEventListener('click', function(event) {
-  if (event.target.innerHTML === 'Show Map') {
-    document.getElementById('mapToggle').innerHTML = 'Hide Map';
-    document.getElementById('map-container').style.display = 'block';
-    window.initMap();
-  } else {
-    document.getElementById('mapToggle').innerHTML = 'Show Map';
-    document.getElementById('map-container').style.display = 'none';
-  }
-});
