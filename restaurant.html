@@ -23,13 +23,13 @@
   <!-- Beginning header -->
   <header>
     <!-- Beginning nav -->
-    <i id="mapToggle" name="button" class="entypo-map"></i>
+    <i id="mapToggle" name="button" aria-label="show on map" class="entypo-map"></i>
     <nav>
       <h1><a href="/">Restaurant Reviews</a></h1>
 
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" >
+    <ul id="breadcrumb" aria-label="breadcrumb" >
       <li><a href="/">Home</a></li>
     </ul>
     <!-- End breadcrumb -->
@@ -38,11 +38,11 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main id="maincontent" class="restaurant-grid">
+  <main role="main" id="maincontent" class="restaurant-grid">
     <!-- Beginning map -->
 
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" role="application" aria-label="showing selected restaurant's location on google map"></div>
     </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
@@ -69,7 +69,7 @@
 
   <!-- Beginning footer -->
   <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="/" aria-labelledby="footer"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 

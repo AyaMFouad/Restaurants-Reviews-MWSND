@@ -4,6 +4,22 @@ let restaurants,
 var map
 var markers = []
 
+/*
+Setting photographs alts*/
+
+const photographAlts = {
+	1: "Sereval groups of people having quality time at a restaurant.",
+	2: "A lovely margeritta pizza",
+	3: "An empty restaurant setting which has heaters",
+	4: "A corner shot of the outside of the restaurat.",
+	5: "A crowded restaurant and staff serving food from behind the bar.",
+	6: "Restaurant with wooden tables, charis, and a US flag as a wall decoration",
+	7: "a dog watching from the outside of a crowded burger shop, accompanied by two men.",
+	8: "Close up of the dutch restaurant logo beside a flowering tree",
+	9: "Black and white picture of people eating at an asian restaurat.",
+	10: "Empty restaurant's white chairs, walls and ceilings."
+};
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -137,10 +153,12 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.tabIndex ='0';
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = photographAlts[restaurant.id];
   li.append(image);
 
   const name = document.createElement('h1');

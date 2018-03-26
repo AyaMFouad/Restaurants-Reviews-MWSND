@@ -55,10 +55,12 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 /* ====================== Navigation ====================== */
 nav {
+	display: felx;
   width: 100%;
   height: 80px;
   background-color: #252831;
   text-align:center;
+	justify-content: center;
 }
 nav h1 {
   margin: auto;
@@ -186,6 +188,10 @@ justify-item text-align: center;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+#restaurants-list li a:hover {
+  background-color: rgb(235, 125, 0);
 }
 
 /* ====================== Restaurant Details ====================== */

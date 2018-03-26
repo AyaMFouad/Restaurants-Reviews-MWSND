@@ -5,8 +5,9 @@
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/Responsive.css">
-  <title>Restaurant Reviews</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restaurant Reviews</title>
+
   <style>
   @import url(http://weloveiconfonts.com/api/?family=entypo);
 
@@ -19,7 +20,7 @@
 
 <body>
   <header>
-    <i id="mapToggle" name="button" class="entypo-map"></i>
+    <i id="mapToggle" name="button" aria-label="show locations on google maps" class="entypo-map"></i>
     <nav>
       <h1><a href="/">Restaurant Reviews</a></h1>
     </nav>
@@ -27,15 +28,18 @@
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map"
+          role="application"
+          aria-label="Google Map with pins of locations of each restaurant fitting the filters criteria">
+        </div>
     </section>
     <section>
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" aria-label="Select neighborhood" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" aria-label="select cuisine" name="cuisines" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
@@ -49,7 +53,7 @@
 
 
   <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="/" aria-labelledby="footer"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 
 </body>

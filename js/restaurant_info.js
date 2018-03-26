@@ -1,6 +1,23 @@
 let restaurant;
 var map;
 
+
+/*
+Setting photographs alts*/
+
+const photographAlts = {
+	1: "Sereval groups of people having quality time at a restaurant.",
+	2: "A lovely margeritta pizza",
+	3: "An empty restaurant setting which has heaters",
+	4: "A corner shot of the outside of the restaurat.",
+	5: "A crowded restaurant and staff serving food from behind the bar.",
+	6: "Restaurant with wooden tables, charis, and a US flag as a wall decoration",
+	7: "a dog watching from the outside of a crowded burger shop, accompanied by two men.",
+	8: "Close up of the dutch restaurant logo beside a flowering tree",
+	9: "Black and white picture of people eating at an asian restaurat.",
+	10: "Empty restaurant's white chairs, walls and ceilings."
+};
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -58,6 +75,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = photographAlts[restaurant.id];
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -97,6 +115,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
+  title.tabIndex = '0';
   container.appendChild(title);
 
   if (!reviews) {
@@ -117,6 +136,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+  li.tabIndex = '0';
 
 
   const date = document.createElement('h5');
