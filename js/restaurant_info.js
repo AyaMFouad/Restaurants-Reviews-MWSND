@@ -157,7 +157,7 @@ createReviewHTML = (review) => {
   date.innerHTML = review.date;
   li.appendChild(date);
 
-  const name = document.createElement('h2');
+  const name = document.createElement('h1');
   name.innerHTML = review.name;
   li.appendChild(name);
 
