@@ -88,19 +88,20 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 /**
  * Initialize Google map, called from HTML.
  */
-window.initMap = () => {
+ window.initMap = () => {
   let loc = {
     lat: 40.722216,
     lng: -73.987501
   };
+  document.getElementById('map');
   self.map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: loc,
     scrollwheel: false
   });
+
   updateRestaurants();
 }
-
 
 /**
 Show map button

@@ -27,15 +27,16 @@
   </header>
 
   <main id="maincontent">
+    <a href="#mainsection" class="skip-link">Map Ahead!</br>Skip to restaurants list?</a>
     <section id="map-container">
       <div id="map"
           role="application"
           aria-label="Google Map with pins of locations of each restaurant fitting the filters criteria">
         </div>
     </section>
-    <section>
+    <section id="mainsection">
       <div class="filter-options">
-        <h2>Filter Results</h2>
+        <h2>Filter Restaurants By:</h2>
         <select id="neighborhoods-select" aria-label="Select neighborhood" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>

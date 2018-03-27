@@ -12,6 +12,7 @@
   .restaurant-grid {grid-template-columns: 1fr;}
   .inside footer {width: 100%;}
   .filter-options select {width: 170px;}
+  .skip-link{display: none;}
 
 }
 /*responsive design for tablets/phablets */
@@ -38,4 +39,5 @@
   #restaurant-container {padding: 30px 20px;}
   .res-container {grid-template-columns: 1fr 1fr;}
   .restaurant-grid {grid-template-columns: 1fr;}
+  .skip-link{display:none;}
 }
