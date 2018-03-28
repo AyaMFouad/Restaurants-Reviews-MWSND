@@ -160,10 +160,10 @@ justify-item text-align: center;
   display: block;
   margin: 0;
   max-width: 100%;
-	min-height: 248px;
+	height: auto;
   min-width: 100%;
 }
-#restaurants-list li h1 {
+#restaurants-list li h2 {
   color: #f18200;
   font-family: Arial,sans-serif;
   font-size: 1.2rem;
