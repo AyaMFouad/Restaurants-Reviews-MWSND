@@ -8,6 +8,15 @@
     position: absolute;
     color: black;
   }
+  .inside #map-container{
+  position:relative;
+  top:0;
+  width:100%;
+  min-height:300px}
+  #map{height:300px}
+  .inside header{position:relative}
+  #breadcrumb{width:100%;}
+  #restaurant-container {padding: 30px 20px;}
   .res-container {grid-template-columns: 1fr;}
   .restaurant-grid {grid-template-columns: 1fr;}
   .inside footer {width: 100%;}
