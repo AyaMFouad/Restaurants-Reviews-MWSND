@@ -175,6 +175,7 @@ createRestaurantHTML = (restaurant) => {
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
+  image.className = 'data-src';
   li.append(image);
 
   const name = document.createElement('h2');
@@ -216,3 +217,11 @@ if (navigator.serviceWorker) {
   navigator.serviceWorker.register('sw.js')
     .then(() => console.log('Passed Test'))
 };
+
+
+[].forEach.call(document.querySelectorAll('img[data-src]'),    function(img) {
+  img.setAttribute('src', img.getAttribute('data-src'));
+  img.onload = function() {
+    img.removeAttribute('data-src');
+  };
+});
