@@ -1,11 +1,14 @@
 /* responsive design for mobile */
 @media screen and (max-width:460px) {
+  nav, .inside nav {display:grid;
+    grid-template-columns: minmax(15%,20%) minmax(280px,1fr);}
   #map-container {display: none;}
   #breadcrumb {width:100%;}
   #restaurants-list li {margin: 30px;}
   #mapToggle{
     display:block;
-    position: absolute;
+   position: absolute;
+   width: auto;
     color: black;
   }
   .inside #map-container{
@@ -20,13 +23,17 @@
   .res-container {grid-template-columns: 1fr;}
   .restaurant-grid {grid-template-columns: 1fr;}
   .inside footer {width: 100%;}
-  .filter-options select {width: 170px;}
+  .filter-options select {width: 95%;}
   .skip-link{display: none;}
+
 
 }
 /*responsive design for tablets/phablets */
 
 @media screen and (min-width:460px) and (max-width:768px) {
+  nav, .inside nav {display:grid;
+    grid-template-columns: 15% 1fr;
+  justify-item: center;}
   #map-container {display: none;}
   #restaurants-list li {
     margin: 10px;
