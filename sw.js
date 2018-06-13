@@ -1,5 +1,5 @@
 
-var staticCacheName = 'resapp-v2';
+var staticCacheName = 'resapp-v3';
 var contentImgsCache = 'resapp-content-imgs';
 var allCaches = [
   staticCacheName,
