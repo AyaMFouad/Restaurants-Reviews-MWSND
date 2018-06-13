@@ -210,6 +210,22 @@ class DBHelper {
   }
 
   /**
+ * Restaurant responsive images source set.
+ */
+static imageResponsiveUrlForRestaurant(restaurant) {
+    const scale1x = '320';
+    const scale1_5x = '480';
+    const scale2x = '640';
+    const scale3x = '800';
+
+    return (
+        `/img_responsive/${restaurant.id}-${scale1x}.jpg ${scale1x}w,
+        /img_responsive/${restaurant.id}-${scale1_5x}.jpg ${scale1_5x}w,
+        /img_responsive/${restaurant.id}-${scale2x}.jpg ${scale2x}w,
+        /img_responsive/${restaurant.id}-${scale3x}.jpg ${scale3x}w`);
+}
+
+  /**
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
