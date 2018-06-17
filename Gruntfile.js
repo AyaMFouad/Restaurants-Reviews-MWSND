@@ -7,6 +7,7 @@ module.exports = function (grunt) {
                 options:
                     {
                         engine: 'im',
+                        concurrency: 2,
                         sizes: [
                             {
                                 width: 320,
@@ -35,8 +36,27 @@ module.exports = function (grunt) {
                     src: ['*.{gif,jpg,png}'],
                     cwd: 'img/',
                     dest: 'img_responsive/'
-                }]
+                },
+              {
+                expand: true,
+                src: ['*.webp'],
+                cwd: 'img_responsive/',
+                dest:'img_responsive/'
+              }
+            ]
             }
+        },
+
+        cwebp: {
+          files: {
+            expand: true,
+            cwd: 'img/',
+            src: ['*.{gif,jpg,png}'],
+            dest:'img_responsive/'
+          },
+          options: {
+            q: 80
+          }
         },
 
         /* Clear out the images directory if it exists */
@@ -56,21 +76,12 @@ module.exports = function (grunt) {
         },
 
         /* Copy the "fixed" images that don't go through processing into the images/directory */
-        copy: {
-            dev: {
-                files: [{
-                    expand: true,
-                    src: 'images_src/fixed/*.{gif,jpg,png}',
-                    dest: 'images/'
-                }]
-            },
-        },
     });
 
     grunt.loadNpmTasks('grunt-responsive-images');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-mkdir');
-    grunt.registerTask('default', ['clean', 'mkdir', 'copy', 'responsive_images']);
+    grunt.loadNpmTasks('grunt-cwebp');
+    grunt.registerTask('default', ['clean', 'mkdir', 'cwebp', 'responsive_images']);
 
 };

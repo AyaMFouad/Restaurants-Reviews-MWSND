@@ -32,6 +32,8 @@
   "dependencies": {
     "graphicsmagick": "0.0.1",
     "grunt-cli": "^1.2.0",
+    "grunt-cwebp": "^2.1.1",
+    "grunt-webp": "0.0.4",
     "imagemagick": "^0.1.3",
     "imagemin": "^4.0.0"
   }

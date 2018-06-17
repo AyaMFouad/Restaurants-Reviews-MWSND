@@ -206,7 +206,7 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/img/${restaurant.photograph}.jpg`);
+    return (`/img/${restaurant.photograph}.webp`);
   }
 
   /**
@@ -219,10 +219,10 @@ static imageResponsiveUrlForRestaurant(restaurant) {
     const scale3x = '800';
 
     return (
-        `/img_responsive/${restaurant.id}-${scale1x}.jpg ${scale1x}w,
-        /img_responsive/${restaurant.id}-${scale1_5x}.jpg ${scale1_5x}w,
-        /img_responsive/${restaurant.id}-${scale2x}.jpg ${scale2x}w,
-        /img_responsive/${restaurant.id}-${scale3x}.jpg ${scale3x}w`);
+        `/img_responsive/${restaurant.id}-${scale1x}.webp ${scale1x}w,
+        /img_responsive/${restaurant.id}-${scale1_5x}.webp ${scale1_5x}w,
+        /img_responsive/${restaurant.id}-${scale2x}.webp ${scale2x}w,
+        /img_responsive/${restaurant.id}-${scale3x}.webp ${scale3x}w`);
 }
 
   /**
