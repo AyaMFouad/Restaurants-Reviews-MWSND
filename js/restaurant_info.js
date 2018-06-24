@@ -203,3 +203,8 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('sw.js')
+    .then(() => console.log('Passed Test'))
+};

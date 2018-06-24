@@ -1,4 +1,3 @@
-
 var staticCacheName = 'resapp-v3';
 var contentImgsCache = 'resapp-content-imgs';
 var allCaches = [
@@ -8,6 +7,7 @@ var allCaches = [
 var urlsToCache = [
     'index.html',
     'restaurant.html',
+    'manifest.json',
     'css/styles.css',
     'css/Responsive.css',
     'js/main.js',
