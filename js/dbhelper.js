@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-
 /**
  * Common database helper functions.
  */
@@ -21,7 +19,7 @@ class DBHelper {
   static openDatabase () {
 
     if (!navigator.serviceWorker) {
-      console.log(`Service Workers is not supported by browsers`);
+      //console.log(`Service Workers is not supported by browsers`);
       return Promise.resolve();
     }
 

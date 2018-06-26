@@ -214,11 +214,11 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
-if (navigator.serviceWorker) {
+/*if (navigator.serviceWorker) {
   navigator.serviceWorker.register('sw.js')
     .then(() => console.log('Passed Test'))
 };
-
+*/
 
 [].forEach.call(document.querySelectorAll('img[data-src]'),    function(img) {
   img.setAttribute('src', img.getAttribute('data-src'));

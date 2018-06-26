@@ -1,59 +1,69 @@
+/* ============================== Media Queries =========================*/
 /* responsive design for mobile */
-@media screen and (max-width:460px) {
-  nav, .inside nav {display:grid;
-    grid-template-columns: minmax(15%,20%) minmax(280px,1fr);}
-  #map-container {display: none;}
-  #breadcrumb {width:100%;}
-  #restaurants-list li {margin: 30px;}
-  #mapToggle{
-    display:block;
-   position: absolute;
-   width: auto;
-    color: black;
-  }
-  .inside #map-container{
-  position:relative;
-  top:0;
-  width:100%;
-  min-height:300px}
-  #map{height:300px}
-  .inside header{position:relative}
-  #breadcrumb{width:100%;}
-  #restaurant-container {padding: 30px 20px;}
-  .res-container {grid-template-columns: 1fr;}
-  .restaurant-grid {grid-template-columns: 1fr;}
-  .inside footer {width: 100%;}
-  .filter-options select {width: 95%;}
-  .skip-link{display: none;}
+@media screen and (max-width: 460px) {
+  nav, .inside nav {
+    display: grid;
+    grid-template-columns: minmax(15%, 20%) minmax(280px, 1fr); }
+  #map-container {
+    display: none; }
+  #restaurants-list li {
+    margin: 30px; }
+  #mapToggle {
+    display: block;
+    position: absolute;
+    width: auto;
+    color: black; }
+  .inside #map-container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-height: 300px; }
+  #map {
+    height: 300px; }
+  .inside header {
+    position: relative; }
+  #restaurant-container {
+    padding: 30px 20px; }
+  .res-container {
+    grid-template-columns: 1fr; }
+  .restaurant-grid {
+    grid-template-columns: 1fr; }
+  .inside footer {
+    width: 100%; }
+  .filter-options select {
+    width: 95%; }
+  .skip-link {
+    display: none; } }
 
-
-}
 /*responsive design for tablets/phablets */
-
-@media screen and (min-width:460px) and (max-width:768px) {
-  nav, .inside nav {display:grid;
+@media screen and (min-width: 460px) and (max-width: 768px) {
+  nav, .inside nav {
+    display: grid;
     grid-template-columns: 15% 1fr;
-  justify-item: center;}
-  #map-container {display: none;}
+    justify-item: center; }
+  #map-container {
+    display: none; }
   #restaurants-list li {
     margin: 10px;
-    width: auto;
-  }
-  #mapToggle{
-    display:block;
+    width: auto; }
+  #mapToggle {
+    display: block;
     position: absolute;
-    color: black;
-  }
-  .inside #map-container{
-  position:relative;
-  top:0;
-  width:100%;
-  min-height:300px}
-  #map{height:300px}
-  .inside header{position:relative}
-  #breadcrumb{width:100%;}
-  #restaurant-container {padding: 30px 20px;}
-  .res-container {grid-template-columns: 1fr 1fr;}
-  .restaurant-grid {grid-template-columns: 1fr;}
-  .skip-link{display:none;}
-}
+    color: black; }
+  .inside #map-container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-height: 300px; }
+  #map {
+    height: 300px; }
+  .inside header {
+    position: relative; }
+  #restaurant-container {
+    padding: 30px 20px; }
+  .res-container {
+    grid-template-columns: 1fr 1fr; }
+  .restaurant-grid {
+    grid-template-columns: 1fr; }
+  .skip-link {
+    display: none; } }
