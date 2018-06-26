@@ -218,12 +218,14 @@ nav h1 a {
 .inside #map {
   background-color: #ccc;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+z-index: -1;
+position:relative;}
 
-.inside #footer {
+/*.inside #footer {
   bottom: 0;
   position: absolute;
-  max-width: 100%; }
+  max-width: 100%; }*/
 
 #restaurant-name {
   color: #f18200;

@@ -4,6 +4,26 @@ let restaurants,
 var map
 var markers = []
 
+let observer = new IntersectionObserver(changes => {
+  for (const change of changes) {
+    if (change.intersecionRation >= 0.9) {
+      DBHelper.fetchRestaurants((error, data) => {
+        if (error) {
+          console.error(error);
+        } else {
+          fillRestaurantHTML(data)
+        }
+      });
+    }
+  }
+},
+  {
+    threshold: [0.9]
+  }
+);
+
+observer.observe(document.getElementById('restaurants-list'));
+
 /*
 Setting photographs alts*/
 
@@ -176,7 +196,6 @@ createRestaurantHTML = (restaurant) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
-  image.className = 'data-src';
   li.append(image);
 
   const name = document.createElement('h2');
@@ -214,15 +233,16 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
-/*if (navigator.serviceWorker) {
+if (navigator.serviceWorker) {
   navigator.serviceWorker.register('sw.js')
     .then(() => console.log('Passed Test'))
 };
-*/
 
+/*
 [].forEach.call(document.querySelectorAll('img[data-src]'),    function(img) {
   img.setAttribute('src', img.getAttribute('data-src'));
   img.onload = function() {
     img.removeAttribute('data-src');
   };
 });
+*/

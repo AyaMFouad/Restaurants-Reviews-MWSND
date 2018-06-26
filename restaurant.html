@@ -5,8 +5,8 @@
   <!-- Normalize.css for better cross-browser consistency -->
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
-  <link rel="stylesheet" href="css/Responsive.css" type="text/css">
+  <link rel="preload" as="style" href="css/styles.css" onload="this.rel='stylesheet'">
+  <link rel="preload" as="style" href="css/Responsive.css" onload="this.rel='stylesheet'">
   <title>Restaurant Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="manifest.json">
@@ -109,7 +109,7 @@
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="text/javascript" src="js/all_restaurant.js"></script>
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap"></script>
+  <script rel="prefetch" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
 
 </body>
