@@ -78,7 +78,7 @@ gulp.task('scripts-index', function() {
 });
 
 gulp.task('scripts-restaurant', function() {
-	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js'])
+	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js', 'js/form.js'])
 		.pipe(sourcemaps.init())
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))

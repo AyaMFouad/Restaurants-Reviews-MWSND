@@ -87,6 +87,38 @@
         <ul id="reviews-list"></ul>
       </section>
 
+      <section id="review-form">
+
+        <div class="container" id="app">
+          <div class="add-product" :class="{'open': formOpen}">
+            <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Share a Review</div>
+            <form @submit="cancel()">
+
+              <div class="form--field">
+                <label>Your Name</label>
+                <input type="text" class="form--element" name="title" v-model="productData.title" placeholder="Title">
+              </div>
+              <div class="form--container -inline">
+                <div class="form--field -short">
+                  <label>Restaurant Rating *</label>
+                  <input type="number" class="form--element" name="rating" v-model="productData.rating" placeholder="Rating" required="" min="1" max="5" step="1">
+                </div>
+              </div>
+              <div class="form--field">
+                <label>Your Review*</label>
+                <textarea class="form--element textarea" v-model="productData.description" placeholder="Share your opinion about this restaurant" Required="">
+                </textarea>
+              </div>
+
+              <button type="submit" class="submit-button">Submit</button>
+              <div class="cancel"><span @click="cancel()">Cancel</span></div>
+            </form>
+          </div>
+        </div>
+
+      </section>
+
+
     </section>
 
     <!-- end restaurant -->
@@ -107,7 +139,9 @@
   <!-- Import JS -->
   <!-- Import idb promises library -->
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script type="text/javascript" src="js/all_restaurant.js"></script>
+
   <!-- Google Maps -->
   <script rel="prefetch" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
