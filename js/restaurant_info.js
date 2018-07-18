@@ -1,5 +1,34 @@
 let restaurant;
+let reviews;
 var map;
+
+/**fetch restaurant and reviews as soon as the page loads */
+document.addEventListener('DOMContentLoaded', (event) => {
+  fetchRestaurantFromURL((error, restaurant) => {
+    if(restaurant) {
+      self.restaurant = restaurant;
+      fillBreadcrumb();
+      // Fetch All Reviews;
+      fetchReviews();
+      addMarkerToMap(restaurant);
+      updateIconData();
+    }
+  });
+});
+
+ updateIconData = (restaurant = self.restaurant) => {
+  const i = document.querySelector('#star-icon');
+  const favoriteLink = DBHelper.urlForToggleFavoriteLink(restaurant);
+  i.setAttribute('data-link', favoriteLink);
+  i.setAttribute('data-id', restaurant.id);
+  if(restaurant.is_favorite == 'true') {
+    i.classList.add('open');
+    i.setAttribute('title', 'unfavorite restaurant!');
+  } else {
+    i.classList.remove('open');
+    i.setAttribute('title', 'favorite restaurant!');
+  }
+}
 
 
 /*
@@ -102,8 +131,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
   fillReviewsHTML();
 }
-
-
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -213,3 +240,32 @@ if (navigator.serviceWorker) {
   navigator.serviceWorker.register('sw.js')
     .then(() => console.log('Passed Test'))
 };
+
+
+const star = document.querySelector('#star-icon');
+star.addEventListener('click', function(e) {
+  let url = star.dataset.link;
+  let restaurantId = star.dataset.id;
+  if('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready
+      .then((sw) => {
+        self.restaurant.is_favorite = self.restaurant.is_favorite == 'true' ? 'false' : 'true';
+        updateIconData();
+        DBHelper.saveSyncFavoritesIntoIDB({url, id:restaurantId})
+        .then(() => {
+          return sw.sync.register('sync-add-favorites');
+        }).then(() => {
+          DBHelper.updateRestaurantIsFavoriteInIDB(restaurantId);
+        }).catch((e) => {
+          console.log('error in syncing the favorite link', e);
+        })
+      });
+  } else {
+    DBHelper.addRestaurantToFavorite(url)
+      .then(() => {
+        DBHelper.updateRestaurantIsFavoriteInIDB(restaurantId);
+        self.restaurant.is_favorite = self.restaurant.is_favorite == "false" ? "true": "false";
+        updateIconData();
+      });
+  }
+});

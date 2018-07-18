@@ -77,6 +77,7 @@
     <section id="restaurant-container">
 
       <h2 id="restaurant-name"></h2>
+      <i class="star" id="star-icon"></i>
       <img id="restaurant-img">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
@@ -90,27 +91,26 @@
       <section id="review-form">
 
         <div class="container" id="app">
-          <div class="add-product" :class="{'open': formOpen}">
+          <div class="add-review" :class="{'open': formOpen}">
             <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Share a Review</div>
-            <form @submit="cancel()">
-
+            <form method="post" @submit="cancel()" >
               <div class="form--field">
                 <label>Your Name</label>
-                <input type="text" class="form--element" name="title" v-model="productData.title" placeholder="Title">
+                <input id="name" aria-label="name" type="text" class="form--element" name="name" v-model="review.name" placeholder="Your Name">
               </div>
               <div class="form--container -inline">
                 <div class="form--field -short">
                   <label>Restaurant Rating *</label>
-                  <input type="number" class="form--element" name="rating" v-model="productData.rating" placeholder="Rating" required="" min="1" max="5" step="1">
+                  <input id="rating" aria-label="rating" type="number" class="form--element" name="rating" v-model="review.rating" placeholder="Rating" required="" min="1" max="5" step="1">
                 </div>
               </div>
               <div class="form--field">
                 <label>Your Review*</label>
-                <textarea class="form--element textarea" v-model="productData.description" placeholder="Share your opinion about this restaurant" Required="">
+                <textarea id="comments" aria-label="review" class="form--element textarea" v-model="review.comments" placeholder="Share your opinion about this restaurant" Required="">
                 </textarea>
               </div>
 
-              <button type="submit" class="submit-button">Submit</button>
+              <button type="submit" id="submit" class="submit-button">Submit</button>
               <div class="cancel"><span @click="cancel()">Cancel</span></div>
             </form>
           </div>
@@ -139,7 +139,7 @@
   <!-- Import JS -->
   <!-- Import idb promises library -->
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
   <script type="text/javascript" src="js/all_restaurant.js"></script>
 
   <!-- Google Maps -->
@@ -149,4 +149,3 @@
 </body>
 
 </html>
-z

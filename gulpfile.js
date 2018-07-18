@@ -98,7 +98,7 @@ gulp.task('scripts-dist-index', function() {
 });
 
 gulp.task('scripts-dist-restaurant', function() {
-	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js'])
+	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js', 'js/form.js'])
 		//.pipe(sourcemaps.init())
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))
@@ -109,7 +109,7 @@ gulp.task('scripts-dist-restaurant', function() {
 
 
 gulp.task('default', gulp.series(gulp.parallel('copy-manifest', 'copy-html', 'copy-images','copy-resp-images', 'copy-icons', 'copy-sw', 'copy-idb', 'styles', 'scripts-index', 'scripts-restaurant'), function() {
-	gulp.watch('sass/**/*.scss').on('all', gulp.parallel('styles'));
+	gulp.watch('css/**/*.css').on('all', gulp.parallel('styles'));
 	gulp.watch('./*.html').on('all', gulp.parallel('copy-html'));
 	gulp.watch('./sw.js').on('all', gulp.parallel('copy-sw'));
 	gulp.watch('./dist/*.html').on('change', browserSync.reload);

@@ -2,22 +2,18 @@ var vue = new Vue({
   el: '#app',
   data: {
     formOpen: false,
-    productData: {
-      title: '',
+    review: {
+      name: '',
       rating: '',
-      price: '',
-      list_price: '',
-      is_featured: false
+      comments:''
     }
   },
   methods: {
     resetForm: function () {
-      this.productData = {
-        title: '',
+      this.review = {
+        name: '',
         rating: '',
-        price: '',
-        list_price: '',
-        is_featured: false
+        comments:''
       }
     },
     cancel: function() {

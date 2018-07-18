@@ -306,7 +306,6 @@ position:relative;}
 
 /*===============form==================*/
 
-
 .container {
   display: flex;
   width: 100%;
@@ -315,55 +314,56 @@ position:relative;}
   align-items: center;
 }
 
-.add-product {
-  &.open {
-    background-color: #FAFAFA;
-    padding: 18px 32px;
-    border-radius: 5px;
-    max-width: 100%
-  /*  width: 420px;
-    height: 398px;*/
-    cursor: default;
-    form {
-      opacity: 1;
-      transition: opacity 0.1s ease;
-      transition-delay: 0.3s;
-      height: auto;
-    }
-  }
+.add-review {
   transition: all 0.3s ease;
-  background-color: #FF7600;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .07);
+  background-color: #ff7600;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
   cursor: pointer;
-  .button-copy {
-    text-align: center;
-    line-height: 70px;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #ff7600;
-  }
-  form {
-    transition: none;
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-  }
-  .cancel {
-    font-size: 12px;
-    text-align: center;
-    margin-top: 1em;
-    span {
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
+  margin: 20px;
+}
+.add-review.open {
+  background-color: #FAFAFA;
+  padding: 18px 32px;
+  border-radius: 5px;
+  width: 420px;
+  height: 398px;
+  cursor: default;
+}
+.add-review.open form {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+  transition-delay: 0.3s;
+  height: auto;
+}
+.add-review .button-copy {
+  text-align: center;
+  line-height: 70px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000000;
+
+}
+.add-review form {
+  transition: none;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.add-review .cancel {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 1em;
+}
+.add-review .cancel span {
+  cursor: pointer;
+}
+.add-review .cancel span:hover {
+  text-decoration: underline;
 }
 
 .submit-button {
   display: block;
-  background-color: #3498DB;
+  background-color: #333;
   height: 40px;
   border-radius: 20px;
   line-height: 36px;
@@ -375,25 +375,17 @@ position:relative;}
   font-weight: 700;
   padding: 0 34px;
   margin: 0 auto;
-  img {
-    position: relative;
-    top: 3px;
-    right: 6px;
-  }
-  &:hover {
-    background-color: darken(#3498DB, 10%);
-    cursor: pointer;
-  }
 }
-/*
-.featured-note {
-  color: #949494;
-  font-size: 12px;
-  margin: 4px 0px;
-  line-height: 18px;
-  font-style: italic;
+.submit-button img {
+  position: relative;
+  top: 3px;
+  right: 6px;
 }
-*/
+.submit-button:hover {
+  background-color: #217dbb;
+  cursor: pointer;
+}
+
 form * {
   outline: none;
 }
@@ -403,57 +395,25 @@ label {
   font-size: 14px;
   font-weight: bold;
   user-select: none;
-  &.emoji {
-    input {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      height: 21px;
-      margin: 0;
-      display: none;
-      &+span:after {
-        content: "😶";
-        font-size: 18px;
-        top: 2px;
-        left: 2px;
-        position: relative;
-        height: 18px;
-        display: inline-block;
-      }
-      &:checked+span:after {
-        content: "😀";
-      }
-    }
-  }
 }
 
 .form--field {
   width: 420px;
   margin: 10px 0;
-  &.-short {
-    width: 120px;
-  }
 }
-/*
-.form--price {
-  position: absolute;
-  line-height: 38px;
-  width: 16px;
-  color: #C7C7C7;
-  text-align: center;
-  & + input {
-    padding-left: 14px;
-  }*/
+.form--field.-short {
+  width: 120px;
 }
 
 .form--container {
   width: 420px;
-  &.-inline {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: -12px;
-  }
+}
+.form--container.-inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: -12px;
+
 }
 
 .form--element {
@@ -467,29 +427,28 @@ label {
   width: 100%;
   margin: 4px 0;
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
-  &:focus {
-    border: 1px solid #FFC145;
-    border-radius: 2px;
-  }
-  &:not(.texteare) {
-    height: 30px;
-  }
-  &.textarea {
-    height: 80px;
-    resize: none;
-  }
+  font-family: "Open Sans", sans-serif;
 }
-
-
-html,
+.form--element:focus {
+  border: 1px solid #ff7600;
+  border-radius: 2px;
+}
+.form--element:not(.texteare) {
+  height: 30px;
+}
+.form--element.textarea {
+  height: 80px;
+  resize: none;
+}
+/*
+a,
 body {
   height: 100%;
   margin: 0;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   background-color: #F3F4F5;
   cursor: default;
@@ -499,7 +458,7 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-
+*/
 ::selection {
   background-color: #F5617A;
   color: #fff;
@@ -509,8 +468,6 @@ a {
   background-color: #F5617A;
   color: #fff;
 }
-
-
 /*==================end form==============*/
 
 
