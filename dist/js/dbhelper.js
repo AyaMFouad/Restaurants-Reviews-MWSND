@@ -21,42 +21,6 @@ static get REVIEWS_URL() {
   return `http://localhost:${port}/reviews/?restaurant_id=`;
 }
 
-// IDB creation
-
-
-static openDatabase () {
-
-  // If the browser doesn't support service worker,
-  // we don't care about having a database
-  if (!navigator.serviceWorker) {
-    console.log(`Browser doesn't support Service Workers`);
-    return Promise.resolve();
-  }
-
-  return idb.open('restaurants-db', 1, function (upgradeDb) {
-    var storeRestaurants = upgradeDb.createObjectStore('restaurants', {
-      keyPath: 'id',
-    });
-    storeRestaurants.createIndex('rest-id', 'id');
-    var storeReviews = upgradeDb.createObjectStore('reviews', {
-      keyPath: 'id',
-      autoIncrement: true,
-    });
-    storeReviews.createIndex('restaurant_id',
-                             'restaurant_id',
-                             { unique: false });
-    var storeSyncReview = upgradeDb.createObjectStore('sync-reviews', {
-      keyPath: 'id',
-      autoIncrement: true,
-    });
-    storeSyncReview.createIndex('restaurant_id',
-                             'restaurant_id',
-                             { unique: false });
-  });
-}
-
-
-
   /**
    * Fetch all restaurants.
    */
@@ -110,6 +74,211 @@ static openDatabase () {
       console.log('Fetch Error: ', err);
     });
   }
+
+  /** IBD APIS */
+
+  /**
+ * Fetch Reviews
+ */
+static fetchReviews(callback) {
+  DBHelper.fetchReviewsFromIDB((error, reviews) => {
+    if(error) {
+      DBHelper.fetchReviewsFromNetwork((error, reviewsFormNetwork) => {
+        if(reviewsFormNetwork && reviewsFormNetwork.length) {
+          DBHelper.saveReviewsIntoIDB(reviewsFormNetwork);
+
+          callback(null, reviewsFormNetwork);
+        }
+
+        if(error) {
+          callback(error, null);
+        }
+      });
+    }
+    if(reviews) {
+      callback(null, reviews);
+    }
+
+  })
+}
+
+/**
+ * Fetch reviews from Indexed DB
+ */
+static fetchReviewsFromIDB(callback) {
+  // const dbPromise = DBHelper.openDatabase();
+  return DBHelper.openDatabase().then((db) => {
+    if(!db) return;
+
+    const tx = db.transaction('reviews');
+    const store =  tx.objectStore('reviews');
+
+    return store.getAll().then((reviews) => {
+      if(reviews.length) {
+        callback(null, reviews);
+      } else {
+        const error = 'There is no reviews in IDB';
+        callback(error, null);
+      }
+    });
+  });
+}
+
+/**
+* Save reviews into the indexed DB
+*/
+static saveReviewsIntoIDB(reviews) {
+
+  return DBHelper.openDatabase().then((db) => {
+    if(!db) return;
+    const tx = db.transaction('reviews', 'readwrite')
+    const store = tx.objectStore('reviews');
+    reviews.forEach((review) => {
+      store.put(review);
+    });
+    return tx.complete;
+  });
+}
+
+/**
+* Save Sync reviews into the indexed DB
+*/
+static saveSyncReviewsIntoIDB(review) {
+  return DBHelper.openDatabase().then((db) => {
+    if(!db) return;
+    const tx = db.transaction('sync-reviews', 'readwrite')
+    const store = tx.objectStore('sync-reviews');
+    store.put(review);
+    return tx.complete;
+  });
+}
+
+/**
+ * get all syncing reviews
+ */
+static getSyncReviewsFromIDB() {
+  return DBHelper.openDatabase().then((db) => {
+      if(!db) return;
+
+      const tx = db.transaction('sync-reviews');
+      const store =  tx.objectStore('sync-reviews');
+
+      return store.getAll();
+  });
+}
+
+/**
+ * Fetch reviews from network
+ */
+static fetchReviewsFromNetwork(callback) {
+
+  const url = "http://localhost:1337/reviews/";
+  return fetch(url).then((response) => {
+    return response.json();
+  }).then((reviews) => {
+    if(reviews) {
+      callback(null, reviews);
+    }
+  }).catch(e => {
+    const error = (`Request failed. Returned status of 404`);
+    callback(error, null);
+  });
+}
+
+  /* Add restaurants to indexedDB */
+  static saveRestaurantstoIDB(restaurants){
+  return DBHelper.openDatabase().then(function (db) {
+    if (!db) return;
+      let store = db.transaction('restaurants', 'readwrite')
+                    .objectStore('restaurants');
+      restaurants.forEach(function (restaurant) {
+        store.put(restaurant);
+      });
+  });
+}
+
+/*fetch restaurants from network*/
+static fetchRestaurantsFromNetwork(callback) {
+  return     fetch(DBHelper.DATABASE_URL + '/restaurants')
+      .then(
+        function (response) {
+          if (response.status !== 200) {
+            console.log('Fetch Issue - Status Code: ' + response.status);
+            return;
+          }
+          response.json().then(function (restaurants) {
+            callback(null, restaurants);
+          });
+        }
+      )
+      .catch(function (err) {
+        console.log('Fetch Error: ', err);
+      });
+}
+
+/**fetch restaurants from idb*/
+static fetchRestaurantsFromIDB(callback) {
+  return  DBHelper.openDatabase().then(function (db) {
+        if (!db) return;
+          return db.transaction('restaurants', 'readwrite')
+                   .objectStore('restaurants')
+                   .getAll();
+      }).then(function (restaurants) {
+        if (restaurants.length === 0) return;
+        callback(null, restaurants);
+      });
+}
+
+
+   // IDB creation
+
+
+  static openDatabase () {
+
+    if (!navigator.serviceWorker) {
+      //console.log(`Service Workers is not supported by browsers`);
+      return Promise.resolve();
+    }
+
+    return idb.open('restaurants-db', 2, (upgradeDB) => {
+      switch (upgradeDB.oldVersion) {
+        case 0:
+          upgradeDB.createObjectStore('restaurants', {
+            keyPath: 'id'
+          });
+        case 1:
+          upgradeDB.createObjectStore('reviews', {
+            keyPath: 'id'
+          });
+        case 2:
+          upgradeDB.createObjectStore('sync-reviews', {
+            keyPath: 'id'
+          });
+        case 3:
+          upgradeDB.createObjectStore('sync-favorites', {
+            keyPath: 'id'
+          });
+        }
+    });
+  }
+
+
+  /**create review*/
+
+  static createPostReview (review) {
+  const url = 'http://localhost:1337/reviews/';
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(review),
+  }).then(response => {
+    return response.json();
+  }).then((data) => {
+    // console.log(data);
+    DBHelper.saveReviewsIntoIDB([data]);
+  }).catch((e) => {
+    console.log('something went wrong', e);
+  })
+}
 
   /**
    * Fetch a restaurant by its ID.
@@ -222,92 +391,6 @@ static openDatabase () {
       }
     });
   }
-
-  /**
-     * Fetch all reviews.
-     */
-    static fetchReviews(id, callback) {
-
-      // get reviews from indexedDB
-      DBHelper.openDatabase().then(function (db) {
-        if (!db) {
-          return;
-        }  else {
-          let storeReviews = db.transaction('reviews', 'readwrite')
-                               .objectStore('reviews');
-          let restIndex = storeReviews.index('restaurant_id');
-          return restIndex.getAll(parseInt(id));
-        }
-      }).then(function (reviews) {
-        if (reviews.length === 0) return;
-        callback(null, reviews);
-      });
-
-      /* Fetch reviews from network */
-      fetch(`${DBHelper.REVIEWS_URL}${id}`)
-             .then(response => response.json())
-             .then(reviews => {
-
-                /* Add reviews to indexedDB */
-                DBHelper.openDatabase().then(function (db) {
-                  if (!db) {
-                    return;
-                  } else {
-                    let tx = db.transaction('reviews', 'readwrite');
-                    let storeReviews = tx.objectStore('reviews');
-
-                    reviews.forEach(function (review) {
-                      storeReviews.put(review);
-                    });
-
-                    return tx.complete;
-                  }
-                });
-
-                callback(null, reviews);
-              })
-             .catch(error => callback(`Request failed. Returned ${error}`, null));
-    }
-
-    static fetchTmpReviews(id, callback) {
-
-      // get reviews from indexedDB
-      DBHelper.openDatabase().then(function (db) {
-        if (!db) {
-          return;
-        }  else {
-          let storeReviews = db.transaction('sync-reviews', 'readonly')
-                               .objectStore('sync-reviews');
-          let restIndex = storeReviews.index('restaurant_id');
-          return restIndex.getAll(parseInt(id));
-        }
-      }).then(function (reviews) {
-        if (reviews.length === 0) return;
-        callback(null, reviews);
-      });
-    }
-
-    /**
-     * Post reviews to DB
-     */
-    static postReview(review) {
-      return DBHelper.openDatabase().then(function (db) {
-        if (!db) {
-          return;
-        } else {
-          let tx = db.transaction('sync-reviews', 'readwrite');
-          let storeReviews = tx.objectStore('sync-reviews');
-
-          storeReviews.put(review);
-          return tx.complete;
-        }
-      }).then(function () {
-        return Promise.resolve();
-      }).catch(function (err) {
-        console.log(err);
-        return Promise.resolve();
-      });
-    }
 
   /**
    * Restaurant page URL.

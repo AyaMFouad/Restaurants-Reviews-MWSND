@@ -94,6 +94,8 @@
           <div class="add-review" :class="{'open': formOpen}">
             <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Share a Review</div>
             <form method="post" @submit="cancel()" >
+              <ul id="errors">
+        </ul>
               <div class="form--field">
                 <label>Your Name</label>
                 <input id="name" aria-label="name" type="text" class="form--element" name="name" v-model="review.name" placeholder="Your Name">
