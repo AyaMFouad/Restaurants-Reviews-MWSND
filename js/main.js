@@ -210,13 +210,60 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
+  const wrapper = document.createElement('div');
+  wrapper.setAttribute('class', 'wrapper');
+  li.append(wrapper);
+
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  wrapper.append(more)
+
+  const favorite = document.createElement('i');
+  const isFavorite = restaurant.is_favorite == 'true' ? 'fas' : 'far'; // API PUT converts true into 'true'...
+  favorite.setAttribute('id', `rest${restaurant.id}`);
+  favorite.setAttribute('class', `${isFavorite} fa-heart fa-3x`);
+  favorite.setAttribute('tabindex', '0');
+  favorite.setAttribute('role', 'button');
+  if (restaurant.is_favorite == 'true') {
+    favorite.setAttribute('aria-label', `Unmark ${restaurant.name} as favorite`);
+  } else {
+    favorite.setAttribute('aria-label', `Mark ${restaurant.name} as favorite`);
+  }
+
+  favorite.addEventListener('click', () => {
+    const restId = favorite.getAttribute('id');
+    toggleFav(restId, restaurant.name);
+  });
+  favorite.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) { // = enter key
+      const restId = favorite.getAttribute('id');
+      toggleFav(restId, restaurant.name);
+    }
+  });
+  wrapper.append(favorite);
 
   return li
-}
+};
+
+toggleFav = (restId, restName) => {
+  const element = document.getElementById(restId);
+  const setToggle = element.classList.contains('far');
+  element.classList.toggle('far');
+  element.classList.toggle('fas');
+  if (setToggle) {
+    element.setAttribute('aria-label', `Mark ${restName} as favorite`);
+  } else {
+    element.setAttribute('aria-label', `Unmark ${restName} as favorite`);
+  }
+
+  DBHelper.toggleFavorite(restId.slice(4), setToggle).then(() => {
+    setTimeout(function () {
+      updateRestaurants();
+    }, 200);
+  });
+
+};
 
 /**
  * Add markers for current restaurants to the map.

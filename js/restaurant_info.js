@@ -82,11 +82,31 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
+ * Set the favorite restaurant layout
+ */
+toggleFavorite = (restId) => {
+  const element = document.getElementById('isFavorite');
+  const setToggle = element.classList.contains('far');
+  element.classList.toggle('far');
+  element.classList.toggle('fas');
+  DBHelper.toggleFavorite(restId, setToggle);
+};
+
+/**
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+	const favorite = document.getElementById('isFavorite');
+	const isFavorite = restaurant.is_favorite == 'true' ? 'fas' : 'far';
+	favorite.classList.remove('far');
+	favorite.classList.add(`${isFavorite}`);
+	if (restaurant.is_favorite == 'true') {
+	favorite.setAttribute('aria-label', `Unmark ${restaurant.name} as favorite`);
+	} else {
+	favorite.setAttribute('aria-label', `Mark ${restaurant.name} as favorite`);
+	}
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -107,6 +127,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
   fillReviewsHTML();
 }
+
+
 
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
@@ -239,6 +261,8 @@ createReviewHTML = (review) => {
 
   const rating = document.createElement('i');
   rating.innerHTML = `Rating: ${review.rating}`;
+	rating.style.backgroundColor = review.rating === 5 ? 'green' :
+                                 review.rating > 2 ? 'orange' : 'red';
   li.appendChild(rating);
 
   const comments = document.createElement('p');
@@ -261,18 +285,18 @@ createTmpReviewHTML = (review) => {
   div.setAttribute('class', 'review-header');
   li.appendChild(div);
 
-  const name = document.createElement('p');
+  const name = document.createElement('h1');
   name.setAttribute('class', 'reviewName');
   name.innerHTML = review.name;
   div.appendChild(name);
 
-  const date = document.createElement('p');
+  const date = document.createElement('h5');
   date.setAttribute('class', 'reviewDate');
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   date.innerHTML = (new Date(review.createdAt)).toLocaleDateString('en-US', dateOptions);
   div.appendChild(date);
 
-  const rating = document.createElement('p');
+  const rating = document.createElement('i');
   rating.innerHTML = `Rating: ${review.rating}`;
   rating.setAttribute('class', 'reviewRating');
   rating.style.backgroundColor = review.rating === 5 ? 'green' :
@@ -319,7 +343,17 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+//eventlisteners for favorite toggle
 
+const fav = document.getElementById('isFavorite');
+fav.addEventListener('click', () => {
+  toggleFavorite(self.restaurant.id);
+});
+fav.addEventListener('keydown', (e) => {
+  if (e.keyCode === 13) { // = enter key
+    toggleFavorite(self.restaurant.id);
+  }
+});
 
 
 if (navigator.serviceWorker) {

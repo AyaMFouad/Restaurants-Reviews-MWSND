@@ -309,6 +309,50 @@ static openDatabase () {
       });
     }
 
+    static toggleFavorite(restaurantId, toggleValue) {
+  return DBHelper.openDatabase().then(function (db) {
+    if (!db) {
+      return;
+    } else {
+      let storeRestaurants = db.transaction('restaurants', 'readwrite')
+                               .objectStore('restaurants');
+      let restaurantIndex = storeRestaurants.index('rest-id');
+      return restaurantIndex.openCursor();
+    }
+  }).then(function updateFavorite(cursor) {
+
+    restaurantId = +restaurantId;
+
+    if (!cursor) return;
+
+    if (cursor.value.id === restaurantId) {
+      var updateData = cursor.value;
+
+      updateData.is_favorite = toggleValue;
+      var request = cursor.update(updateData);
+      request.onsuccess = function () {
+        return;
+      };
+    };
+
+    return cursor.continue().then(updateFavorite);
+
+  }).then(function () {
+
+      const url = `http://localhost:1337/restaurants/${restaurantId}/?is_favorite=${toggleValue}`;
+
+      fetch(url, {
+        method: 'PUT',
+      }).then((response) => response.json()
+      ).catch((error) => {
+        console.log('Error fetching is_favorite: ' + error);
+      });
+
+    }).then(function () {
+      return Promise.resolve();
+    });
+}
+
   /**
    * Restaurant page URL.
    */

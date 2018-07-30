@@ -175,6 +175,12 @@ nav h1 a {
   margin: 0;
   font-size: .9rem; }
 
+  .wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
 #restaurants-list li a {
   background-color: #ff7600;
   border-bottom: 3px solid #eee;
@@ -199,6 +205,27 @@ nav h1 a {
 #restaurants-list li a:focus,
 #restaurants-list li a:hover {
   background: #1c79c0; }
+
+  .far {
+	color: orange;
+	margin: 15px 25px 5px 10px;
+	cursor: pointer;
+  /*float: right;*/
+}
+#restaurant-container .far {
+	margin:0;
+
+}
+
+.fas {
+	color: red;
+	margin: 15px 25px 5px 10px;
+	cursor: pointer;
+  /*float: right;*/
+}
+#restaurant-container .fas {
+	margin: 0;
+}
 
 /* ====================== Restaurant Details ====================== */
 /*.inside header {
@@ -480,12 +507,13 @@ a {
   grid-auto-rows: minmax(100px, auto); }
 
 #mapToggle {
-  font-size: 3rem;
+  font-size: 3.5rem;
   padding: 10px;
   float: right;
   background: white;
   opacity: 0.5;
   display: none;
+  margin: 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
