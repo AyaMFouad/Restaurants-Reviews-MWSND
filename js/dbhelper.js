@@ -269,7 +269,7 @@ static openDatabase () {
              .catch(error => callback(`Request failed. Returned ${error}`, null));
     }
 
-    static fetchTmpReviews(id, callback) {
+    static fetchOfflineReviews(id, callback) {
 
       // get reviews from indexedDB
       DBHelper.openDatabase().then(function (db) {

@@ -81,8 +81,7 @@ self.addEventListener('fetch', function(event){
 });
 
 self.addEventListener('sync', function (event) {
-  if (event.tag == 'myFirstSync') {
-    // console.log('sw: sync received');
+  if (event.tag == 'reqReviewSync') {
     event.waitUntil(syncReview());
   }
 });

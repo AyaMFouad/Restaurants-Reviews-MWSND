@@ -11,7 +11,8 @@ let observer = new IntersectionObserver(changes => {
         if (error) {
           console.error(error);
         } else {
-          fillRestaurantHTML(data)
+          fillRestaurantHTML(data);
+          console.log('observer in action!');
         }
       });
     }
@@ -222,7 +223,7 @@ createRestaurantHTML = (restaurant) => {
   const favorite = document.createElement('i');
   const isFavorite = restaurant.is_favorite == 'true' ? 'fas' : 'far'; // API PUT converts true into 'true'...
   favorite.setAttribute('id', `rest${restaurant.id}`);
-  favorite.setAttribute('class', `${isFavorite} fa-heart fa-3x`);
+  favorite.setAttribute('class', `${isFavorite} fa-heart fa-2x`);
   favorite.setAttribute('tabindex', '0');
   favorite.setAttribute('role', 'button');
   if (restaurant.is_favorite == 'true') {

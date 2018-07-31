@@ -52,10 +52,6 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
 });
 
 
-
-
-
-
 /**
  * Get current restaurant from page URL.
  */
@@ -82,7 +78,7 @@ fetchRestaurantFromURL = (callback) => {
 }
 
 /**
- * Set the favorite restaurant layout
+ * favorite restaurant business
  */
 toggleFavorite = (restId) => {
   const element = document.getElementById('isFavorite');
@@ -127,7 +123,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
   fillReviewsHTML();
 }
-
 
 
 /**
@@ -177,27 +172,29 @@ fillReviewsHTML = (restaurantId = self.restaurant.id) => {
         ul.appendChild(createReviewHTML(review));
       });
       container.appendChild(ul);
-      fillTmpReviewsHTML();
+      offlineReviewsHTML();
     }
     }
   });
 };
 
 window.addEventListener('online', function (e) {
-  navigator.serviceWorker.ready.then(function (swRegistration) {
-    swRegistration.sync.register('myFirstSync');
+  navigator.serviceWorker.ready.then(function (regsw) {
+    regsw.sync.register('reqReviewSync');
   });
 }, false);
 
-fillTmpReviewsHTML = (restaurantId = self.restaurant.id) => {
-  DBHelper.fetchTmpReviews(restaurantId, (error, reviews) => {
+//storing reviews posted offline
+
+offlineReviewsHTML = (restaurantId = self.restaurant.id) => {
+  DBHelper.fetchOfflineReviews(restaurantId, (error, reviews) => {
 
     if (error) {
       console.log(error);
     } else {
       const ul = document.getElementById('reviews-list');
       const tmps = document.getElementsByClassName('tmp');
-      if (tmps.length === 0) { // mitigate double adds
+      if (tmps.length === 0) {
         reviews.forEach(review => {
           ul.appendChild(createTmpReviewHTML(review));
         });
@@ -206,42 +203,6 @@ fillTmpReviewsHTML = (restaurantId = self.restaurant.id) => {
   });
 };
 
-
-/**
- * Hanlding form submition
- */
- addReview = () => {
-   const review = {
-    restaurant_id: self.restaurant.id,
-    name: document.getElementById('name').value,
-    createdAt: new Date().getTime(),
-    updatedAt: new Date().getTime(),
-    rating: +document.getElementById('rating').value,
-    comments: document.getElementById('comments').value,
-  };
-  const ul = document.getElementById('reviews-list');
-  ul.insertBefore(createReviewHTML(review), ul.childNodes[0]);
-  if (!navigator.onLine) {
-    alert('You are currently offline. Your review will be posted once you are online again. Thank you for reviewing!');
-  }
-  DBHelper.postReview(review).then(function () {
-  navigator.serviceWorker.ready.then(function (swRegistration) {
-    swRegistration.sync.register('myFirstSync');
-    location.reload();
-  });
-}).then(function () {
-  fillReviewsHTML();
-}).then(function () {
-  fillTmpReviewsHTML();
-}).catch(function (err) {
-  console.error(err);
-});
-};
-
-document.getElementById('review-form').addEventListener('submit', function (event) {
-  event.preventDefault();
-  addReview();
-});
 
 /**
  * Create review HTML and add it to the webpage.

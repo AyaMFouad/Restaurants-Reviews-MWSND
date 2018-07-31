@@ -77,43 +77,41 @@
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
-
-
-      <section id="reviews-container">
-        <ul id="reviews-list"></ul>
-      </section>
+    </section>
 
       <section id="review-form">
 
         <div class="container" id="app">
           <div class="add-review" :class="{'open': formOpen}">
-            <div class="button-copy" v-show="!formOpen" @click="formOpen = true">Share a Review</div>
+            <div class="button-copy" v-show="!formOpen" @click="formOpen = true" id="add-review" tabindex="0">Share a Review</div>
             <form method="post" @submit="cancel()" >
               <div class="form--field">
-                <label>Your Name</label>
-                <input id="name" aria-label="name" type="text" class="form--element" name="name" v-model="review.name" placeholder="Your Name">
+                <label>Your Name *</label>
+                <input id="name" aria-label="name" type="text" class="form--element" name="name" v-model="review.name" placeholder="Your Name" required="" tabindex="-1">
               </div>
               <div class="form--container -inline">
                 <div class="form--field -short">
                   <label>Restaurant Rating *</label>
-                  <input id="rating" aria-label="rating" type="number" class="form--element" name="rating" v-model="review.rating" placeholder="Rating" required="" min="1" max="5" step="1">
+                  <input id="rating" aria-label="rating" type="number" class="form--element" name="rating" v-model="review.rating" placeholder="Rating" required="" min="1" max="5" step="1" tabindex="-1">
                 </div>
               </div>
               <div class="form--field">
                 <label>Your Review*</label>
-                <textarea id="comments" aria-label="review" class="form--element textarea" v-model="review.comments" placeholder="Share your opinion about this restaurant" Required="">
+                <textarea id="comments" aria-label="review" class="form--element textarea" v-model="review.comments" placeholder="Share your opinion about this restaurant" Required="" tabindex="-1">
                 </textarea>
               </div>
 
-              <button type="submit" id="submit" class="submit-button">Submit</button>
-              <div class="cancel"><span @click="cancel()">Cancel</span></div>
+              <button type="submit" id="submit" class="submit-button" tabindex="-1">Submit</button>
+              <div class="cancel"><span @click="cancel()" id="cancel" tabindex="-1">Cancel</span></div>
             </form>
           </div>
         </div>
 
       </section>
 
-
+      <section id="reviews-container">
+      <!-- <ul id="reviews-list"></ul>-->
+      </section>
     </section>
 
     <!-- end restaurant -->
@@ -138,7 +136,7 @@
   <script type="text/javascript" src="js/all_restaurant.js"></script>
 
   <!-- Google Maps -->
-  <script rel="prefetch" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
   <!-- End scripts -->
 
 </body>
