@@ -2,7 +2,7 @@ importScripts('js/idb.js');
 importScripts('js/dbhelper.js');
 
 
-var staticCacheName = 'resapp-v6';
+var staticCacheName = 'resapp-static';
 var contentImgsCache = 'resapp-content-imgs';
 var allCaches = [
   staticCacheName,
@@ -16,7 +16,25 @@ var urlsToCache = [
     'css/Responsive.css',
     'js/all_index.js',
     'js/idb.js',
-    'js/all_restaurant.js'
+    'js/all_restaurant.js',
+    '/img/1.webp',
+    '/img/2.webp',
+    '/img/3.webp',
+    '/img/4.webp',
+    '/img/5.webp',
+    '/img/6.webp',
+    '/img/7.webp',
+    '/img/8.webp',
+    '/img/9.webp',
+    '/img/10.webp',
+    '/icons/16.png',
+    '/icons/24.png',
+    '/icons/32.png',
+    '/icons/64.png',
+    '/icons/128.png',
+    '/icons/256.png',
+    '/icons/512.png',
+    '/icons/icon.svg'
 ];
 
 self.addEventListener('install', function(event){
@@ -52,6 +70,7 @@ self.addEventListener('fetch', event => {
         event.respondWith(servePhoto(event.request));
         return;
     };
+
 
     event.respondWith(
         caches.match(event.request)

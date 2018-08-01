@@ -6,6 +6,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var htmlmin = require('gulp-htmlmin');
+var gzip = require('gulp-gzip');
+var compression = require('compression')
 var uglify = require('gulp-uglify-es').default;
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
@@ -14,6 +16,7 @@ var imagemin = require('gulp-imagemin');
 
 gulp.task('copy-idb', function() {
 	return gulp.src('js/idb.js')
+		.pipe(gzip())
 		.pipe(gulp.dest('./dist/js'));
 });
 
@@ -26,6 +29,7 @@ gulp.task('copy-html', function() {
 	return gulp.src('./*.html')
 		.pipe(htmlclean())
 		.pipe(htmlmin({collapseWhitespace: true}))
+		.pipe(gzip())
 		.pipe(gulp.dest('./dist'));
 });
 
@@ -61,8 +65,9 @@ gulp.task('styles', function() {
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions']
 		}))
-		.pipe(sourcemaps.write())
 		.pipe(cleancss())
+		.pipe(gzip())
+		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/css'))
 		.pipe(browserSync.stream());
 });
@@ -73,6 +78,7 @@ gulp.task('scripts-index', function() {
 		.pipe(babel())
 		.pipe(concat('all_index.js'))
 		.pipe(uglify())
+		.pipe(gzip())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/js'));
 });
@@ -83,6 +89,7 @@ gulp.task('scripts-restaurant', function() {
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))
 		.pipe(uglify())
+		.pipe(gzip())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/js'));
 });
@@ -93,6 +100,7 @@ gulp.task('scripts-dist-index', function() {
 		.pipe(babel())
 		.pipe(concat('all_index.js'))
 		.pipe(uglify())
+		.pipe(gzip())
 		//.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/js'));
 });
@@ -103,6 +111,7 @@ gulp.task('scripts-dist-restaurant', function() {
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))
 		.pipe(uglify())
+		.pipe(gzip())
 		//.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/js'));
 });
@@ -115,7 +124,10 @@ gulp.task('default', gulp.series(gulp.parallel('copy-manifest', 'copy-html', 'co
 	gulp.watch('./dist/*.html').on('change', browserSync.reload);
 
 	browserSync.init({
-		server: './dist',
+		server: {
+			baseDir: './dist',
+	      middleware: (request, response, next) => compression()(request, response, next)
+			},
 		// Open the site in Chrome
 		browser: "Chrome",
 		port: 8000

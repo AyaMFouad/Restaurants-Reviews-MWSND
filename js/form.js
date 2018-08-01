@@ -1,4 +1,4 @@
-/*credtit of the original code of this from goes to
+/*credtit of the original code for this from goes to
 * user 'gregh' from codepen
 *(https://codepen.io/gregh/pen/rjbmXb)
 * I just tweaked it to suit this application's needs*/

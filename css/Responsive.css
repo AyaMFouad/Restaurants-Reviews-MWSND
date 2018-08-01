@@ -1,6 +1,6 @@
 /* ============================== Media Queries =========================*/
 /* responsive design for mobile */
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 460px) {
   nav, .inside nav {
     display: grid;
     grid-template-columns: minmax(15%, 20%) minmax(280px, 1fr); }
