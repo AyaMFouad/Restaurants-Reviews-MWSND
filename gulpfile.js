@@ -12,6 +12,7 @@ var uglify = require('gulp-uglify-es').default;
 var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var imagemin = require('gulp-imagemin');
+var imageminWebp = require('imagemin-webp');
 
 
 gulp.task('copy-idb', function() {
@@ -40,13 +41,13 @@ gulp.task('copy-sw', function() {
 
 gulp.task('copy-images', function() {
 	return gulp.src('img/*')
-		.pipe(imagemin([imagemin.jpegtran({progressive: true})]))
+		.pipe(imagemin([imageminWebp({progressive: true})]))
 		.pipe(gulp.dest('dist/img'));
 });
 
 gulp.task('copy-resp-images', function() {
 	return gulp.src('img_responsive/*')
-		.pipe(imagemin([imagemin.jpegtran({progressive: true})]))
+		.pipe(imagemin([imageminWebp({progressive: true})]))
 		.pipe(gulp.dest('dist/img_responsive'));
 });
 

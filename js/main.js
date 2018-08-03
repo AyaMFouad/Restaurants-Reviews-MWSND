@@ -1,3 +1,5 @@
+import LazyLoad from "vanilla-lazyload";
+
 let restaurants,
   neighborhoods,
   cuisines
@@ -11,7 +13,7 @@ let observer = new IntersectionObserver(changes => {
         if (error) {
           console.error(error);
         } else {
-          fillRestaurantHTML(data);
+          fillRestaurantsHTML(data);
           console.log('observer in action!');
         }
       });
@@ -182,6 +184,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
+  new LazyLoad({ elements_selector: ".js-lazy"});
   addMarkersToMap();
 }
 
@@ -193,10 +196,11 @@ createRestaurantHTML = (restaurant) => {
   li.tabIndex ='0';
 
   const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
+
+  image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.dataset.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
+  image.className = 'restaurant-img js-lazy';
   li.append(image);
 
   const name = document.createElement('h2');

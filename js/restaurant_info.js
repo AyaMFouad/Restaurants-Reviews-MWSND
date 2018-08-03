@@ -1,3 +1,5 @@
+import LazyLoad from "vanilla-lazyload";
+
 let restaurant;
 var map;
 
@@ -72,6 +74,7 @@ fetchRestaurantFromURL = (callback) => {
         return;
       }
       fillRestaurantHTML();
+			new LazyLoad({ elements_selector: ".js-lazy"});
       callback(null, restaurant)
     });
   }
@@ -108,9 +111,9 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-	image.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
+  image.className = 'restaurant-img';
+  image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+	image.dataset.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
 
   const cuisine = document.getElementById('restaurant-cuisine');

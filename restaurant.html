@@ -73,7 +73,7 @@
       <h2 id="restaurant-name"></h2>
       <i id="isFavorite" class="far fa-heart fa-3x" role="button" tabindex="0"></i>
     </div>
-      <img id="restaurant-img">
+      <img src="/" id="restaurant-img" class="js-lazy">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
@@ -136,7 +136,7 @@
   <script type="text/javascript" src="js/all_restaurant.js"></script>
 
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
   <!-- End scripts -->
 
 </body>
