@@ -1,5 +1,3 @@
-import LazyLoad from "vanilla-lazyload";
-
 let restaurant;
 var map;
 
@@ -38,18 +36,17 @@ window.initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
-}
+};
 
 /**
 Show map button
 */
-callMap =
 document.getElementById('mapToggle').addEventListener('click', function(event) {
   if ((document.getElementById('map-container').style.display) === 'block') {
     document.getElementById('map-container').style.display = 'none';
-    window.initMap();
   } else {
     document.getElementById('map-container').style.display = 'block';
+		window.initMap();
   }
 });
 
@@ -57,7 +54,7 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
 /**
  * Get current restaurant from page URL.
  */
-fetchRestaurantFromURL = (callback) => {
+ fetchRestaurantFromURL = (callback) => {
   if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
@@ -74,27 +71,27 @@ fetchRestaurantFromURL = (callback) => {
         return;
       }
       fillRestaurantHTML();
-			new LazyLoad({ elements_selector: ".js-lazy"});
+		//	new LazyLoad({ elements_selector: ".js-lazy"});
       callback(null, restaurant)
     });
   }
-}
+};
 
 /**
  * favorite restaurant business
  */
-toggleFavorite = (restId) => {
+ favToggle = (restId) => {
   const element = document.getElementById('isFavorite');
   const setToggle = element.classList.contains('far');
   element.classList.toggle('far');
   element.classList.toggle('fas');
-  DBHelper.toggleFavorite(restId, setToggle);
+  DBHelper.favToggle(restId, setToggle);
 };
 
 /**
  * Create restaurant HTML and add it to the webpage
  */
-fillRestaurantHTML = (restaurant = self.restaurant) => {
+ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 	const favorite = document.getElementById('isFavorite');
@@ -112,8 +109,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
-  image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
-	image.dataset.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
+  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+	image.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -131,7 +128,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
-fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
+ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
 	hours.innerHTML = '';
   for (let key in operatingHours) {
@@ -147,12 +144,12 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     hours.appendChild(row);
   }
-}
+};
 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (restaurantId = self.restaurant.id) => {
+ fillReviewsHTML = (restaurantId = self.restaurant.id) => {
   DBHelper.fetchReviews(restaurantId, (error, reviews) => {
     if(error) {
       console.log(error);
@@ -189,7 +186,7 @@ window.addEventListener('online', function (e) {
 
 //storing reviews posted offline
 
-offlineReviewsHTML = (restaurantId = self.restaurant.id) => {
+ offlineReviewsHTML = (restaurantId = self.restaurant.id) => {
   DBHelper.fetchOfflineReviews(restaurantId, (error, reviews) => {
 
     if (error) {
@@ -199,7 +196,7 @@ offlineReviewsHTML = (restaurantId = self.restaurant.id) => {
       const tmps = document.getElementsByClassName('tmp');
       if (tmps.length === 0) {
         reviews.forEach(review => {
-          ul.appendChild(createTmpReviewHTML(review));
+          ul.appendChild(createOffReviewHTML(review));
         });
       }
     }
@@ -210,7 +207,7 @@ offlineReviewsHTML = (restaurantId = self.restaurant.id) => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+  createReviewHTML = (review) => {
   const li = document.createElement('li');
   li.tabIndex = '0';
 
@@ -242,7 +239,7 @@ createReviewHTML = (review) => {
 /**
  * Create TMP review HTML and add it to the webpage.
  */
-createTmpReviewHTML = (review) => {
+ createOffReviewHTML = (review) => {
   const li = document.createElement('li');
   li.setAttribute('class', 'tmp');
   const div = document.createElement('div');
@@ -256,7 +253,7 @@ createTmpReviewHTML = (review) => {
 
   const date = document.createElement('h5');
   date.setAttribute('class', 'reviewDate');
-  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const dateOptions = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
   date.innerHTML = (new Date(review.createdAt)).toLocaleDateString('en-US', dateOptions);
   div.appendChild(date);
 
@@ -278,7 +275,7 @@ createTmpReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+ fillBreadcrumb = (restaurant=self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
 	const breadcrumbElements = breadcrumb.querySelectorAll('li');
 	for (element of breadcrumbElements) {
@@ -294,7 +291,7 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
 /**
  * Get a parameter by name from page URL.
  */
-getParameterByName = (name, url) => {
+ getParameterByName = (name, url) => {
   if (!url)
     url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
@@ -311,11 +308,11 @@ getParameterByName = (name, url) => {
 
 const fav = document.getElementById('isFavorite');
 fav.addEventListener('click', () => {
-  toggleFavorite(self.restaurant.id);
+  favToggle(self.restaurant.id);
 });
 fav.addEventListener('keydown', (e) => {
   if (e.keyCode === 13) { // = enter key
-    toggleFavorite(self.restaurant.id);
+    favToggle(self.restaurant.id);
   }
 });
 

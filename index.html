@@ -2,10 +2,25 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <link rel="preload" as="style" href="css/styles.css" onload="this.rel='stylesheet'">
-  <link rel="preload" as="style" href="css/Responsive.css" onload="this.rel='stylesheet'">
+  <link defer rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
+  <style>
+  @charset "utf-8";
+  img,embed,object,video{max-width:100%}
+  body,td,th,p{font-family:Arial,Helvetica,sans-serif;font-size:1rem;color:#333;line-height:1.5}
+  body{background-color:#fdfdfd;margin:0;position:relative}
+  ul,li{font-family:Arial,Helvetica,sans-serif;font-size:1rem;color:#333}
+  a{color:#fff;text-decoration:none}
+  a:hover,a:focus{color:#3397db;text-decoration:none}
+  a img{border:none 0 #fff}
+  h1,h2,h3,h4,h5,h6{font-family:Arial,Helvetica,sans-serif;margin:0 0 20px}
+  article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+  #maincontent{background-color:#f3f3f3;width:100%;min-height:100%}
+  #footer{background-color:#1a1919;color:#aaa;font-size:.7rem;letter-spacing:1px;padding:25px 0;text-align:center;text-transform:uppercase}
+  </style>
+  <link rel="stylesheet" href="css/styles_main.css" type="text/css">
+  <link rel="stylesheet" media="screen and (max-width: 460px)" href="css/mobile.css" type="text/css">
+  <link rel="stylesheet" media="screen and (min-width: 460px) and (max-width: 768px)" href="css/Responsive.css" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="manifest" href="manifest.json">
 
@@ -75,6 +90,7 @@
   <!-- Import idb promises library -->
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/all_index.js"></script>
+  <script type="application/javascript" charset="utf-8" src='https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.13.0/lazyload.min.js'></script>
   <!-- Google Maps -->
   <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap"></script>
 

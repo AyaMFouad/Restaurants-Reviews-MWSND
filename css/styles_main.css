@@ -1,0 +1,185 @@
+
+/* ====================== Navigation ====================== */
+  nav {
+    height: 80px;
+    background-color: #252831;
+    text-align: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+
+  nav h1 {
+    margin: auto;
+    max-width: 100%; }
+
+  nav h1 a {
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 200;
+    letter-spacing: 10px;
+    text-transform: uppercase; }
+
+/* ====================== Restaurant Listing ====================== */
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#restaurants-list {
+  background-color: #f3f3f3;
+  list-style: outside none none;
+  margin: 0;
+  padding: 30px 15px 60px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center; }
+
+#restaurants-list li {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  font-family: Arial,sans-serif;
+  margin: 15px;
+  min-height: 380px;
+  padding: 20px 20px;
+  text-align: left;
+  max-width: 270px;
+  border-radius: 30px 0px; }
+
+#restaurants-list .restaurant-img {
+  background-color: #ccc;
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  height: auto;
+  min-width: 100%; }
+
+#restaurants-list li h2 {
+  color: #f18200;
+  font-family: Arial,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 200;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin: 20px 0 10px;
+  text-transform: uppercase; }
+
+#restaurants-list p {
+  margin: 0;
+  font-size: .9rem; }
+
+  .wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#restaurants-list li a {
+  background-color: #ff7600;
+  border-bottom: 3px solid #eee;
+  color: #fff;
+  display: inline-block;
+  font-size: .8rem;
+  margin: 15px 0 0;
+  padding: 8px 30px 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase; }
+
+  /* ====================== Map ====================== */
+  #map {
+    height: 400px;
+    width: 100%;
+    background: url('https://maps.googleapis.com/maps/api/staticmap?center=40.722216,-73.987501&zomm=12&size=1920x400&key=AIzaSyA1GRyFuY1EKhu0mzXJsGtRCgzkV3Dx_Jo') no-repeat center center;
+   }
+
+  /* ====================== Restaurant Filtering ====================== */
+  .filter-options {
+    padding-top: 5px;
+    width: 100%;
+    background-color: #ff7600;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+
+  .filter-options h2 {
+    color: white;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0 20px; }
+
+  .filter-options select {
+    background-color: white;
+    border: 1px solid #fff;
+    font-family: Arial,sans-serif;
+    font-size: .8rem;
+    height: 35px;
+    letter-spacing: 0;
+    margin: 10px;
+    padding: 0 10px;
+    width: 200px; }
+
+    .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+
+.filter-options select:focus,
+.filter-options select:hover,
+#mapToggle:focus, #mapToggle:hover {
+  border-color: black;
+  border-width: 2px; }
+
+#restaurants-list li a:focus,
+#restaurants-list li a:hover {
+  background: #1c79c0; }
+
+  .far {
+	color: orange;
+	margin: 15px 25px 5px 10px;
+	cursor: pointer;
+}
+#restaurant-container .far {
+	margin:0;
+
+}
+
+.fas {
+	color: red;
+	margin: 15px 25px 5px 10px;
+	cursor: pointer;
+}
+#restaurant-container .fas {
+	margin: 0;
+}
+
+
+
+#mapToggle {
+  font-size: 3.5rem;
+  padding: 10px;
+  float: right;
+  background: white;
+  opacity: 0.5;
+  display: none;
+  margin: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+
+/* Link for accessibility */
+.skip-link {
+  text-align: center;
+  position: absolute;
+  border-radius: 5px;
+  top: -70px;
+  right: 0;
+  padding: 8px;
+  z-index: 100; }
+
+.skip-link:focus {
+  top: 0; }

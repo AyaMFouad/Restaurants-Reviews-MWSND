@@ -1,4 +1,4 @@
-/*credtit of the original code for this from goes to
+/*credit of the original code for this from goes to
 * user 'gregh' from codepen
 *(https://codepen.io/gregh/pen/rjbmXb)
 * I just tweaked it to suit this application's needs*/
@@ -63,14 +63,8 @@ document.getElementById('review-form').addEventListener('submit', function (even
   event.preventDefault();
   addReview();
   if (event.keyCode === 13) {
-    document.getElementById('submit').click();
-    document.getElementById("name").tabIndex = '-1';
-    document.getElementById("rating").tabIndex = '-1';
-    document.getElementById("comments").tabIndex = '-1';
-    document.getElementById("submit").tabIndex = '-1';
-    document.getElementById("cancel").tabIndex = '-1';
+    removeTabfocusFromForm();
   }
-
 });
 
 
@@ -89,11 +83,17 @@ document.getElementById("add-review").addEventListener("keyup", function(event) 
 document.getElementById('cancel').addEventListener('keyup', function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
-    document.getElementById('cancel').click();
-    document.getElementById("name").tabIndex = '-1';
-    document.getElementById("rating").tabIndex = '-1';
-    document.getElementById("comments").tabIndex = '-1';
-    document.getElementById("submit").tabIndex = '-1';
-    document.getElementById("cancel").tabIndex = '-1';
+    removeTabfocusFromForm();
   }
 });
+
+
+  removeTabfocusFromForm = () => {
+    window.onload = () =>{
+      const form = document.querySelector('#add-review');
+      formDesc = form.querySelectorAll('*');
+      formDesc.forEach( (desc) =>{
+        desc.setAttribute("tabindex", "-1");
+      }, this);
+    }
+  }

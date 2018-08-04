@@ -1,9 +1,8 @@
 importScripts('js/idb.js');
 importScripts('js/dbhelper.js');
 
-
-var staticCacheName = 'resapp-static';
-var contentImgsCache = 'resapp-content-imgs';
+var staticCacheName = 'resapp-static-v2';
+var contentImgsCache = 'resapp-content-imgs-v2';
 var allCaches = [
   staticCacheName,
   contentImgsCache
@@ -12,29 +11,19 @@ var urlsToCache = [
     'index.html',
     'restaurant.html',
     'manifest.json',
-    'css/styles.css',
+    'css/styles_main.css',
+    'css/styles_restaurant.css',
     'css/Responsive.css',
+    'css/mobile.css',
     'js/all_index.js',
     'js/idb.js',
+    'js/dbhelper.js',
     'js/all_restaurant.js',
-    '/img/1.webp',
-    '/img/2.webp',
-    '/img/3.webp',
-    '/img/4.webp',
-    '/img/5.webp',
-    '/img/6.webp',
-    '/img/7.webp',
-    '/img/8.webp',
-    '/img/9.webp',
-    '/img/10.webp',
-    '/icons/16.png',
-    '/icons/24.png',
-    '/icons/32.png',
-    '/icons/64.png',
-    '/icons/128.png',
-    '/icons/256.png',
-    '/icons/512.png',
-    '/icons/icon.svg'
+    '/img/',
+    '/img_responsive',
+    'icons',
+    'https://maps.googleapis.com/maps/api/staticmap?center=40.722216,-73.987501&zomm=12&size=1920x400&key=AIzaSyA1GRyFuY1EKhu0mzXJsGtRCgzkV3Dx_Jo',
+    'https://use.fontawesome.com/releases/v5.1.0/css/all.css'
 ];
 
 self.addEventListener('install', function(event){

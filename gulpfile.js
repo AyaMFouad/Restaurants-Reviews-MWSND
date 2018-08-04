@@ -17,7 +17,11 @@ var imageminWebp = require('imagemin-webp');
 
 gulp.task('copy-idb', function() {
 	return gulp.src('js/idb.js')
-		.pipe(gzip())
+		.pipe(gulp.dest('./dist/js'));
+});
+
+gulp.task('copy-dbhelper', function() {
+	return gulp.src('js/dbhelper.js')
 		.pipe(gulp.dest('./dist/js'));
 });
 
@@ -30,7 +34,6 @@ gulp.task('copy-html', function() {
 	return gulp.src('./*.html')
 		.pipe(htmlclean())
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(gzip())
 		.pipe(gulp.dest('./dist'));
 });
 
@@ -67,7 +70,6 @@ gulp.task('styles', function() {
 			browsers: ['last 2 versions']
 		}))
 		.pipe(cleancss())
-		.pipe(gzip())
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('dist/css'))
 		.pipe(browserSync.stream());
@@ -79,19 +81,19 @@ gulp.task('scripts-index', function() {
 		.pipe(babel())
 		.pipe(concat('all_index.js'))
 		.pipe(uglify())
-		.pipe(gzip())
 		.pipe(sourcemaps.write())
+		.pipe(gzip())
 		.pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('scripts-restaurant', function() {
-	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js', 'js/form.js'])
+	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/form.js' , 'js/registerServiceWorker.js'])
 		.pipe(sourcemaps.init())
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))
 		.pipe(uglify())
-		.pipe(gzip())
 		.pipe(sourcemaps.write())
+		.pipe(gzip())
 		.pipe(gulp.dest('dist/js'));
 });
 
@@ -107,7 +109,7 @@ gulp.task('scripts-dist-index', function() {
 });
 
 gulp.task('scripts-dist-restaurant', function() {
-	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/registerServiceWorker.js', 'js/form.js'])
+	return gulp.src(['js/dbhelper.js', 'js/restaurant_info.js', 'js/form.js' , 'js/registerServiceWorker.js'])
 		//.pipe(sourcemaps.init())
 		.pipe(babel())
 		.pipe(concat('all_restaurant.js'))
@@ -118,7 +120,7 @@ gulp.task('scripts-dist-restaurant', function() {
 });
 
 
-gulp.task('default', gulp.series(gulp.parallel('copy-manifest', 'copy-html', 'copy-images','copy-resp-images', 'copy-icons', 'copy-sw', 'copy-idb', 'styles', 'scripts-index', 'scripts-restaurant'), function() {
+gulp.task('default', gulp.series(gulp.parallel('copy-manifest', 'copy-html', 'copy-images','copy-resp-images', 'copy-icons', 'copy-sw', 'copy-idb','copy-dbhelper', 'styles', 'scripts-index', 'scripts-restaurant'), function() {
 	gulp.watch('css/**/*.css').on('all', gulp.parallel('styles'));
 	gulp.watch('./*.html').on('all', gulp.parallel('copy-html'));
 	gulp.watch('./sw.js').on('all', gulp.parallel('copy-sw'));
@@ -143,6 +145,7 @@ gulp.task('dist', gulp.parallel(
 	'copy-icons',
 	'copy-sw',
 	'copy-idb',
+	'copy-dbhelper',
 	'styles',
 	'scripts-dist-index',
 	'scripts-dist-restaurant'
