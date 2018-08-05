@@ -147,12 +147,14 @@
   <!-- Beginning scripts -->
   <!-- Import JS -->
   <!-- Import idb promises library -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-  <script rel="preload" src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js" as="script"></script>
   <script type="text/javascript" src="js/all_restaurant.js"></script>
+  <script defer type="application/javascript" charset="utf-8" src='https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.13.0/lazyload.min.js'></script>
+
 
   <!-- Google Maps -->
-  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj10VqCtXpZTuEEaE6L6ewdCR4GUpzc1o&libraries=places&callback=initMap" callback="windows.initMap"></script>
   <!-- End scripts -->
 
 </body>

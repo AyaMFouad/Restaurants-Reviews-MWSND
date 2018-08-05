@@ -71,7 +71,7 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
         return;
       }
       fillRestaurantHTML();
-		//	new LazyLoad({ elements_selector: ".js-lazy"});
+			new LazyLoad({ elements_selector: ".js-lazy"});
       callback(null, restaurant)
     });
   }
@@ -109,8 +109,8 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-	image.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
+  image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+	image.dataset.srcset = DBHelper.imageResponsiveUrlForRestaurant(restaurant);
   image.alt = photographAlts[restaurant.id];
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -122,7 +122,7 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
   }
   // fill reviews
   fillReviewsHTML();
-}
+};
 
 
 /**
@@ -178,6 +178,11 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
   });
 };
 
+window.addEventListener('online', function (e) {
+  navigator.serviceWorker.ready.then(function (regsw) {
+    regsw.sync.register('reqReviewSync');
+  });
+}, false);
 
 //storing reviews posted offline
 
@@ -197,13 +202,6 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
     }
   });
 };
-
-
-window.addEventListener('online', function (e) {
-  navigator.serviceWorker.ready.then(function (regsw) {
-    regsw.sync.register('reqReviewSync');
-  });
-}, false);
 
 /**
  * Hanlding form submition
@@ -236,6 +234,10 @@ window.addEventListener('online', function (e) {
 });
 };
 
+document.getElementById('review-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+  addReview();
+});
 
 /**
  * Create review HTML and add it to the webpage.

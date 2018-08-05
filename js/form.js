@@ -2,7 +2,6 @@
 * user 'gregh' from codepen
 *(https://codepen.io/gregh/pen/rjbmXb)
 * I just tweaked it to suit this application's needs*/
-
 var vue = new Vue({
   el: '#app',
   data: {
@@ -28,14 +27,13 @@ var vue = new Vue({
   }
 })
 
+
 document.getElementById('review-form').addEventListener('submit', function (event) {
   event.preventDefault();
-  addReview();
   if (event.keyCode === 13) {
     removeTabfocusFromForm();
   }
 });
-
 
 document.getElementById("add-review").addEventListener("keyup", function(event) {
   event.preventDefault();

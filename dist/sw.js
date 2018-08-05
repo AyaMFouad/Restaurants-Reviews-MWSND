@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 importScripts('js/idb.js');
 importScripts('js/dbhelper.js');
 
@@ -19,11 +20,8 @@ var urlsToCache = [
     'js/idb.js',
     'js/dbhelper.js',
     'js/all_restaurant.js',
-    '/img/',
-    '/img_responsive',
-    'icons',
     'https://maps.googleapis.com/maps/api/staticmap?center=40.722216,-73.987501&zomm=12&size=1920x400&key=AIzaSyA1GRyFuY1EKhu0mzXJsGtRCgzkV3Dx_Jo',
-    'https://use.fontawesome.com/releases/v5.1.0/css/all.css'
+    'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
 ];
 
 self.addEventListener('install', function(event){
@@ -33,8 +31,6 @@ self.addEventListener('install', function(event){
     })
   );
 });
-
-
 
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
