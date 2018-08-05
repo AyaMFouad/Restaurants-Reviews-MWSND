@@ -56,9 +56,9 @@
 <body class="inside">
   <!-- Beginning header -->
   <header>
+    <a href="#restaurant-container" class="skip-link">Map Ahead!</br>Skip to restaurant's info?</a>
     <!-- Beginning nav -->
-
-    <nav>
+    <nav class="nav-primary">
       <div>
       <button id="mapToggle" name="button" aria-label="show on map" class="fas fa-map-marked-alt"></button> </div>
       <div>
@@ -66,10 +66,11 @@
     </div>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb" aria-label="Breadcrumb" >
-      <li><a href="/">Home</a></li>
-    </ul>
-    <a href="#restaurant-container" class="skip-link">Map Ahead!</br>Skip to restaurant's info?</a>
+    <nav aria-label="Breadcrumb" class="nav-breadcrumb">
+      <ul id="breadcrumb" role="navigation">
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
     <!-- End breadcrumb -->
     <!-- End nav -->
   </header>
@@ -147,7 +148,7 @@
   <!-- Import JS -->
   <!-- Import idb promises library -->
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+  <script rel="preload" src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js" as="script"></script>
   <script type="text/javascript" src="js/all_restaurant.js"></script>
 
   <!-- Google Maps -->

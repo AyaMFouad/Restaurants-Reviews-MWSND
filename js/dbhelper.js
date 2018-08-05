@@ -309,7 +309,7 @@ static openDatabase () {
       });
     }
 
-    static toggleFavorite(restaurantId, toggleValue) {
+    static favToggle(restaurantId, toggleValue) {
   return DBHelper.openDatabase().then(function (db) {
     if (!db) {
       return;

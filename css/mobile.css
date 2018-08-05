@@ -1,6 +1,6 @@
 /* responsive design for mobile */
 
-  nav, .inside nav {
+  .nav-primary {
     display: grid;
     grid-template-columns: minmax(15%, 20%) minmax(280px, 1fr); }
   #map-container {

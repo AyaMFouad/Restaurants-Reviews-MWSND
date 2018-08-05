@@ -156,7 +156,7 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
     } else {
       const container = document.getElementById('reviews-container');
       container.innerHTML = '<ul id="reviews-list"></ul>';
-      const title = document.createElement('h2');
+      const title = document.createElement('h4');
       title.innerHTML = 'Reviews';
       title.tabIndex = '0';
       container.appendChild(title);
@@ -178,11 +178,6 @@ document.getElementById('mapToggle').addEventListener('click', function(event) {
   });
 };
 
-window.addEventListener('online', function (e) {
-  navigator.serviceWorker.ready.then(function (regsw) {
-    regsw.sync.register('reqReviewSync');
-  });
-}, false);
 
 //storing reviews posted offline
 
@@ -201,6 +196,44 @@ window.addEventListener('online', function (e) {
       }
     }
   });
+};
+
+
+window.addEventListener('online', function (e) {
+  navigator.serviceWorker.ready.then(function (regsw) {
+    regsw.sync.register('reqReviewSync');
+  });
+}, false);
+
+/**
+ * Hanlding form submition
+ */
+ addReview = () => {
+   const review = {
+    restaurant_id: self.restaurant.id,
+    name: document.getElementById('name').value,
+    createdAt: new Date().getTime(),
+    updatedAt: new Date().getTime(),
+    rating: +document.getElementById('rating').value,
+    comments: document.getElementById('comments').value,
+  };
+  const ul = document.getElementById('reviews-list');
+  ul.insertBefore(createReviewHTML(review), ul.childNodes[0]);
+  if (!navigator.onLine) {
+    alert('You are currently offline. Your review will be posted once you are online again. Thank you for reviewing!');
+  }
+  DBHelper.postReview(review).then(function () {
+  navigator.serviceWorker.ready.then(function (regsw) {
+    regsw.sync.register('reqReviewSync');
+    location.reload();
+  });
+}).then(function () {
+  fillReviewsHTML();
+}).then(function () {
+  offlineReviewsHTML();
+}).catch(function (err) {
+  console.error(err);
+});
 };
 
 
@@ -237,7 +270,7 @@ window.addEventListener('online', function (e) {
 }
 
 /**
- * Create TMP review HTML and add it to the webpage.
+ * Create offline review HTML and add it to the webpage.
  */
  createOffReviewHTML = (review) => {
   const li = document.createElement('li');
@@ -276,17 +309,12 @@ window.addEventListener('online', function (e) {
  * Add restaurant name to the breadcrumb navigation menu
  */
  fillBreadcrumb = (restaurant=self.restaurant) => {
-  const breadcrumb = document.getElementById('breadcrumb');
-	const breadcrumbElements = breadcrumb.querySelectorAll('li');
-	for (element of breadcrumbElements) {
-	element.removeAttribute('aria-current');
-}
-	const li = document.createElement('li');
-	li.setAttribute('aria-current', 'page');
-	if (breadcrumb.childElementCount === 2) return;
-  li.innerHTML = restaurant.name;
-  breadcrumb.appendChild(li);
-}
+   const breadcrumb = document.getElementById('breadcrumb');
+   if (breadcrumb.childElementCount === 2) return; // mitigate double appending
+   const li = document.createElement('li');
+   li.innerHTML = restaurant.name;
+   breadcrumb.appendChild(li);
+ };
 
 /**
  * Get a parameter by name from page URL.

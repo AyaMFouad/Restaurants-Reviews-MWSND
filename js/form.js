@@ -28,37 +28,6 @@ var vue = new Vue({
   }
 })
 
-/**
- * Hanlding form submition
- */
- addReview = () => {
-   const review = {
-    restaurant_id: self.restaurant.id,
-    name: document.getElementById('name').value,
-    createdAt: new Date().getTime(),
-    updatedAt: new Date().getTime(),
-    rating: +document.getElementById('rating').value,
-    comments: document.getElementById('comments').value,
-  };
-  const ul = document.getElementById('reviews-list');
-  ul.insertBefore(createReviewHTML(review), ul.childNodes[0]);
-  if (!navigator.onLine) {
-    alert('You are currently offline. Your review will be posted once you are online again. Thank you for reviewing!');
-  }
-  DBHelper.postReview(review).then(function () {
-  navigator.serviceWorker.ready.then(function (regsw) {
-    regsw.sync.register('reqReviewSync');
-    location.reload();
-  });
-}).then(function () {
-  fillReviewsHTML();
-}).then(function () {
-  offlineReviewsHTML();
-}).catch(function (err) {
-  console.error(err);
-});
-};
-
 document.getElementById('review-form').addEventListener('submit', function (event) {
   event.preventDefault();
   addReview();

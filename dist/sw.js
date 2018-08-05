@@ -141,7 +141,6 @@ const syncReview = () => {
             let tx = db.transaction('sync-reviews', 'readwrite');
             let storeReviews = tx.objectStore('sync-reviews');
 
-            // console.log('delete review: ' + review.id);
             storeReviews.delete(review.id);
             return tx.complete;
           }
